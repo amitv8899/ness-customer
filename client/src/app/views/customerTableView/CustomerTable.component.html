@@ -1,0 +1,82 @@
+<p>
+  <mat-toolbar>
+    <mat-toolbar-row>
+      <span>All My Customers</span>
+    </mat-toolbar-row>
+
+    <mat-toolbar-row>
+      <span>Filters:</span>
+      <mat-form-field>
+        <mat-label>customer type</mat-label>
+        <mat-select [(ngModel)]="curTypeToShow" name="curTypeToShow">
+          <mat-option *ngFor="let type of menuCustomerType" [value]="type">
+            {{ type }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>from Cusomer id</mat-label>
+        <input matInput type="number" [(ngModel)]="from" name="from" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>to Cusomer id</mat-label>
+        <input matInput type="number" [(ngModel)]="to" name="to" />
+      </mat-form-field>
+      <button mat-stroked-button (click)="onApplyFilters()">
+        Apply Filters
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</p>
+
+<mat-card>
+  <table mat-table [dataSource]="displayData" class="mat-elevation-z8">
+    <ng-container matColumnDef="customerID">
+      <th mat-header-cell *matHeaderCellDef>No.</th>
+      <td mat-cell *matCellDef="let element">{{ element.customerID }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="customerName">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.customerName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="customerAddress">
+      <th mat-header-cell *matHeaderCellDef>Address</th>
+      <td mat-cell *matCellDef="let element">{{ element.customerAddress }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="customerPhoneNumber">
+      <th mat-header-cell *matHeaderCellDef>Phone-number</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.customerPhoneNumber }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="customerContact">
+      <th mat-header-cell *matHeaderCellDef>customerContact</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.customerContact }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-button (click)="openBottomSheet(element.customerID)">
+          Edit
+        </button>
+        <button mat-button color="warn" (click)="onDelete(element.customerID)">
+          delete
+        </button>
+      </td></ng-container
+    >
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+  <div *ngIf="displayData.length === 0">No records found</div>
+  <button mat-stroked-button color="primary" (click)="openBottomSheet(null)">
+    Add New Customer
+  </button>
+</mat-card>

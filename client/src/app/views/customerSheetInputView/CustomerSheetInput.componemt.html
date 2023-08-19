@@ -1,0 +1,54 @@
+<form [formGroup]="customerForm" (submit)="onSubmit(customerForm.value)">
+  <mat-card>
+    <mat-card-content>
+      <h4>{{job}}</h4>
+      <mat-form-field>
+        <mat-label>customer name</mat-label>
+        <input
+          matInput
+          placeholder="Name"
+          formControlName="customerName"
+          type="text"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>customer address</mat-label>
+        <input
+          matInput
+          placeholder="Address"
+          formControlName="customerAddress"
+          type="text"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>customr phone number</mat-label>
+        <input
+          matInput
+          placeholder="PhoneNumber"
+          formControlName="customerPhoneNumber"
+          type="number"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>customer contact</mat-label>
+        <input
+          matInput
+          placeholder="Contact"
+          formControlName="customerContact"
+          type="text"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>customer type</mat-label>
+        <input
+          matInput
+          placeholder="Type"
+          formControlName="customerType"
+          type="text"
+        />
+      </mat-form-field>
+    </mat-card-content>
+    <button mat-button>submit</button>
+    <mat-card-actions> </mat-card-actions>
+  </mat-card>
+</form>
