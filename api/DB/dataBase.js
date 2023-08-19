@@ -1,8 +1,6 @@
 const sqlite3 = require("sqlite3").verbose();
 const pathDB = `${__dirname}\\dataBase.db`;
 
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++1"internal" "external"
-
 function createORopenDB() {
   return new sqlite3.Database(pathDB, (err) => {
     if (err) {
