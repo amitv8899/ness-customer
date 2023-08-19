@@ -8,6 +8,7 @@ app.use(bodyParser.json());
 const DB = require("./DB/dataBase");
 
 const logger = function (req, res, next) {
+  // logger for debugging
   console.log(`Http request in ${req.originalUrl} method is : ${req.method}`);
   next();
 };

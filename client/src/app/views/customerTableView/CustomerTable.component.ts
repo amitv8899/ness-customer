@@ -19,7 +19,7 @@ export class CustomerTableComponent {
   ) {}
 
   dataSource: Customer[] = [];
-  displayData = this.dataSource;
+  displayData = this.dataSource; // for filter the data
   curTypeToShow: String = 'All';
   from: Number | null = null;
   to: Number | null = null;
@@ -106,6 +106,7 @@ export class CustomerTableComponent {
   }
 
   onApplyFilters() {
+    // can be replace by calling this.server.get('/getFilterCustomers') with params of : from,to and type and filter will be done by sql command,for large acale of customers
     const filteredCustomers = this.dataSource.filter((customer) => {
       if (customer.customerID === null) {
         return true;
@@ -126,9 +127,5 @@ export class CustomerTableComponent {
       return true;
     });
     this.displayData = filteredCustomers;
-  }
-
-  onSubmit() {
-    this.getData();
   }
 }

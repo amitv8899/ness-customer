@@ -8,14 +8,10 @@ function createORopenDB() {
     if (err) {
       throw new Error(err);
     } else {
-      //   console.log(
-      //     `Connected to the in-memory SQlite database, path : ${pathDB}`
-      //   );
     }
   });
 }
 
-// delete
 function createTable() {
   let db = createORopenDB(pathDB);
   let action = `CREATE TABLE IF NOT EXISTS customers(
@@ -28,8 +24,6 @@ function createTable() {
   db.run(action, function (err) {});
   db.close();
 }
-//createTable();
-//
 
 function runDB(db, action = String, params = Array) {
   // for delete,update,create
@@ -66,7 +60,7 @@ async function getAll() {
   }
 }
 async function getRangeCustomer(from, to, type) {
-  // return with filter
+  // this function can replace the filter in the client side if the customer is very large, filter will be made by the sql and not by map the data
   let db = createORopenDB(pathDB);
   try {
     let action = `SELECT * FROM customers WHERE (ID BETWEEN COALESCE(?, (SELECT MIN(ID) FROM customers)) AND COALESCE(?, (SELECT MAX(ID) FROM customers)))
@@ -139,21 +133,6 @@ async function deleteCustomer(ID = Number) {
     db.close();
   }
 }
-
-function printAll() {
-  let db = createORopenDB(pathDB);
-
-  let action = `SELECT * FROM customers`;
-  db.all(action, (err, rows) => {
-    if (err) {
-      throw new Error(err.message);
-    }
-    rows.forEach(function (row, i) {
-      console.log(row);
-    });
-  });
-}
-//printAll();
 
 module.exports = {
   getRangeCustomer,
