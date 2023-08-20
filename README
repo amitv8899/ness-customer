@@ -1,1 +1,5 @@
 1. i added postMan.json file for you if you want to check only the api just change the localhost
+
+2. if you want to check the api with getFilterCustomers the query params can be null but should not be include in the request
+   getFilterCustomers/?from=3 -> return from id 3 until the end and all types
+   getFilterCustomers/?to=3&type="TYPE" -> return from the lowest id to id == 3 and only customer type == "TYPE"
