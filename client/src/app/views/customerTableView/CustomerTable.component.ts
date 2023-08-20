@@ -34,9 +34,9 @@ export class CustomerTableComponent {
     'actions',
   ];
   getData() {
-    this.server.getCustomers('getAllCustomers').subscribe(
-      (response) => {
-        this.dataSource = response.data.map((customerJson: any) => ({
+    this.server.getCustomers('getAllCustomers').subscribe({
+      next: (value) => {
+        this.dataSource = value.data.map((customerJson: any) => ({
           customerID: customerJson.ID,
           customerName: customerJson.customerName,
           customerAddress: customerJson.customerAddress,
@@ -50,12 +50,13 @@ export class CustomerTableComponent {
           ...new Set(this.dataSource.map((customer) => customer.customerType)),
         ];
       },
-      (error) => {
+      error: (error) => {
         this._snakeBar.open(error.message, 'Undo', {
           duration: 3000,
         });
-      }
-    );
+      },
+      complete: () => {},
+    });
   }
 
   ngOnInit() {
@@ -90,19 +91,20 @@ export class CustomerTableComponent {
   }
 
   onDelete(id: Number) {
-    this.server.deleteCustomer('deleteCustomer', id).subscribe(
-      (response) => {
+    this.server.deleteCustomer('deleteCustomer', id).subscribe({
+      next: (value) => {
         this.getData();
         this._snakeBar.open(`customer: ${id} was deleted`, 'Undo', {
           duration: 3000,
         });
       },
-      (error) => {
+      error: (error) => {
         this._snakeBar.open(error.message, 'Undo', {
           duration: 3000,
         });
-      }
-    );
+      },
+      complete: () => {},
+    });
   }
 
   onApplyFilters() {

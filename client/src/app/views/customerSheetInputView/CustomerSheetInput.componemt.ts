@@ -58,20 +58,19 @@ export class CustomerSheetInputComponent {
       submitCustomer.customerID === null
         ? 'createNewCustomer'
         : 'updateCustomer';
-    this.server.submitCustomerToServer(url, submitCustomer).subscribe(
-      (response) => {
-        console.log(response);
+    this.server.submitCustomerToServer(url, submitCustomer).subscribe({
+      next: (value) => {
         this._snakeBar.open('user submit', 'Undo', {
           duration: 3000,
         });
         this._bottomSheetRef.dismiss(200);
       },
-      (error) => {
-        console.log(error);
+      error: (error) => {
         this._snakeBar.open('could not submit', 'Undo', {
           duration: 3000,
         });
-      }
-    );
+      },
+      complete: () => {},
+    });
   }
 }
